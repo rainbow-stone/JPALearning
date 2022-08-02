@@ -38,8 +38,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>,
   List<Customer> findAllByMultipleConditionSample4(Customer customer);
 
   /**      Native SQL查询                                   **/
-  @Query(value = "SELECT c FROM t_customer c WHERE c.name = ?1 and c.idType = ?2 and c.idCode = ?3",
-          countQuery = "SELECT c FROM t_customer c WHERE c.name = ?1 and c.idType = ?2 and c.idCode = ?3")
+  @Query(value = "SELECT c FROM t_customer c WHERE c.name = ?1 and c.id_type = ?2 and c.id_code = ?3",
+          countQuery = "SELECT c FROM t_customer c WHERE c.name = ?1 and c.id_type = ?2 and c.id_code = ?3",nativeQuery = true)
   List<Customer> findAllByMultipleConditionSample5(String name, Integer idType, String idCode);
 
 }
