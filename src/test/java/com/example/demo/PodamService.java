@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.sql.Timestamp;
 
 import com.example.demo.entity.Customer;
+import com.example.demo.entity.Policy;
 import org.springframework.boot.test.context.TestComponent;
 
 import uk.co.jemos.podam.api.*;
@@ -70,6 +71,8 @@ public class PodamService {
     DefaultClassInfoStrategy classInfoStrategy = DefaultClassInfoStrategy.getInstance();
 
     classInfoStrategy.addExcludedField(Customer.class, "needAuthCheck");
+    classInfoStrategy.addExcludedField(Customer.class, "customerId");
+    classInfoStrategy.addExcludedField(Policy.class, "policyId");
     podamFactory.setClassStrategy(classInfoStrategy);
     return podamFactory;
   }

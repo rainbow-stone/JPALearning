@@ -29,12 +29,12 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>,
     countQuery = "SELECT c FROM Customer c WHERE c.name = :name and c.idType = :idType and c.idCode = :idCode")
   List<Customer> findAllByMultipleConditionSample2(String name, Integer idType, String idCode);
 
-  @Query(value = "SELECT c FROM Customer c WHERE c.name = #{#name} and c.idType = #{#idType} and c.idCode = #{#idCode}",
+  @Query(value = "SELECT c FROM Customer c WHERE c.name = :#{#name} and c.idType = :#{#idType} and c.idCode = :#{#idCode}",
     countQuery = "SELECT c FROM Customer c WHERE c.name = :name and c.idType = :idType and c.idCode = :idCode")
   List<Customer> findAllByMultipleConditionSample3(String name, Integer idType, String idCode);
 
-  @Query(value = "SELECT c FROM Customer c WHERE c.name = #{#customer.name} and c.idType = #{#customer.idType} and c.idCode = #{#custom.idCode}",
-    countQuery = "SELECT c FROM Customer c WHERE c.name = #{#customer.name} and c.idType = #{#customer.idType} and c.idCode = #{#custom.idCode}")
+  @Query(value = "SELECT c FROM Customer c WHERE c.name = :#{#customer.name} and c.idType = :#{#customer.idType} and c.idCode = :#{#custom.idCode}",
+    countQuery = "SELECT c FROM Customer c WHERE c.name = :#{#customer.name} and c.idType = :#{#customer.idType} and c.idCode = :#{#custom.idCode}")
   List<Customer> findAllByMultipleConditionSample4(Customer customer);
 
   /**      Native SQL查询                                   **/
