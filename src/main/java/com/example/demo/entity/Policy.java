@@ -19,7 +19,7 @@ public class Policy {
   @GeneratedValue
   private Long policyId;
 
-  @ManyToOne @JoinColumn(name = "customerId") private Customer policyHolder;
+  @ManyToOne @JoinColumn(name = "policyHolderId") private Customer policyHolder;
 
   private String ProposalNo;
 

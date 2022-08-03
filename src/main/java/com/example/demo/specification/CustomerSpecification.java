@@ -1,5 +1,7 @@
 package com.example.demo.specification;
 
+import cn.hutool.core.util.StrUtil;
+import com.example.demo.dto.CustomerDto;
 import com.example.demo.entity.Customer;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -11,17 +13,30 @@ import java.util.Optional;
 
 /**
  * @author jie.lin 2022/8/3
+ * 编写Specification条件
  */
 public class CustomerSpecification {
 
-    public static <T> Specification<T> buildCustomerSpecification(Customer customer) {
+    public static <T> Specification<T> buildCustomerSpecification(CustomerDto customer) {
 
         return (root, query, cb) -> {
-            List<Predicate> predicateList = new ArrayList<Predicate>();
+            List<Predicate> andPredicateList = new ArrayList<>();
+            List<Predicate> orPredicateList = new ArrayList<>();
             if(customer != null){
-                Optional.ofNullable(customer.getName()).ifPresent(name -> predicateList.add(cb.equal(root.get("name"), name)));
+                //or condition
+                Optional.ofNullable(customer.getFullName()).ifPresent(name -> orPredicateList.add(cb.like(root.get("fullName"), StrUtil.concat(true,"%", customer.getFullName(), "%"))));
+                Optional.ofNullable(customer.getFirstName()).ifPresent(name -> orPredicateList.add(cb.like(root.get("firstName"), StrUtil.concat(true,"%", customer.getFirstName(), "%"))));
+                Optional.ofNullable(customer.getLastName()).ifPresent(name -> orPredicateList.add(cb.like(root.get("lastName"), StrUtil.concat(true,"%", customer.getLastName(), "%"))));
+
+
+                //and condition
+                Optional.ofNullable(customer.getIdType()).ifPresent(idType -> andPredicateList.add(cb.equal(root.get("idType"), idType)));
+                Optional.ofNullable(customer.getIdCode()).ifPresent(idCode -> andPredicateList.add(cb.equal(root.get("idCode"), idCode)));
+
+                andPredicateList.add(cb.or(orPredicateList.toArray(new Predicate[0])));
+
             }
-            return cb.and(predicateList.toArray(new Predicate[0]));
+            return cb.and(andPredicateList.toArray(new Predicate[0]));
         };
     }
 

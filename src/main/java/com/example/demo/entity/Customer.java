@@ -23,19 +23,15 @@ public class Customer {
   @OneToMany(mappedBy = "policyHolder")
   private List<Policy> policies = new ArrayList<>();
 
-  private String name;
+  private String fullName;
+
+  private String firstName;
+
+  private String lastName;
 
   private Integer idType;
 
   private String idCode;
 
-  private Boolean needAuthCheck;
 
-  public Boolean getNeedAuthCheck() {
-    return null != this.needAuthCheck && this.needAuthCheck;
-  }
-
-  public void setNeedAuthCheck(Boolean needAuthCheck) {
-    this.needAuthCheck = needAuthCheck;
-  }
 }

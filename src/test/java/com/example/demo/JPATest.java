@@ -46,10 +46,10 @@ public class JPATest {
         for (int i = 0; i < 5; i++) {
             List<Policy> policies = new ArrayList<Policy>();
             Customer customer = podamService.createFactory().manufacturePojo(Customer.class);
-            customer.setName(customerName.substring(i, i + 1));
+            customer.setFullName(customerName.substring(i, i + 1));
             for (int j = 0; j < 5; j++) {
                 Policy policy = podamService.createFactory().manufacturePojo(Policy.class);
-                policy.setProposalNo(customer.getName().concat(policyProposal.substring(j, j + 1)));
+                policy.setProposalNo(customer.getFullName().concat(policyProposal.substring(j, j + 1)));
                 //policy.setPolicyHolder(customer);
                 policies.add(policy);
             }
@@ -64,7 +64,7 @@ public class JPATest {
 
     @Test
     void testFindCustomer() {
-      List<Policy> policies =policyRepository.findByPolicyHolderName("赵");
+      List<Policy> policies =policyRepository.findByPolicyHolderFullName("赵");
       assertNotNull(policies);
     }
 

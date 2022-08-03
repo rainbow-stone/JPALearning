@@ -12,5 +12,5 @@ import java.util.List;
 public interface PolicyRepository extends JpaRepository<Policy, Long>, JpaSpecificationExecutor<Policy> {
 
     /**       **/
-    List<Policy> findByPolicyHolderName(String name);
+    List<Policy> findByPolicyHolderFullName(String name);
 }
