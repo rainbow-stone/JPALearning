@@ -1,9 +1,8 @@
 package com.example.demo.entity;
 
-import javax.persistence.*;
-
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -15,16 +14,18 @@ import java.util.Date;
 public class Policy {
 
 
-  @Id
-  @GeneratedValue
-  private Long policyId;
+    @Id
+    @GeneratedValue
+    private Long policyId;
 
-  @ManyToOne @JoinColumn(name = "policyHolderId") private Customer policyHolder;
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "policyHolderId")
+    private Customer policyHolder;
 
-  private String ProposalNo;
+    private String proposalNo;
 
-  private Date submissionDate;
+    private Date submissionDate;
 
-  private Date issueDate;
+    private Date issueDate;
 
 }

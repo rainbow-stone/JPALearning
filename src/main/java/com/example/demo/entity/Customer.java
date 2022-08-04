@@ -15,23 +15,23 @@ import java.util.List;
 public class Customer {
 
 
-  @Id
-  @GeneratedValue
-  /*@Column(name = "customerId")*/
-  private Long customerId;
+    @Id
+    @GeneratedValue
+    /*@Column(name = "customerId")*/
+    private Long customerId;
 
-  @OneToMany(mappedBy = "policyHolder")
-  private List<Policy> policies = new ArrayList<>();
+    @OneToMany(mappedBy = "policyHolder")
+    private List<Policy> policies = new ArrayList<>();
 
-  private String fullName;
+    private String fullName;
 
-  private String firstName;
+    private String firstName;
 
-  private String lastName;
+    private String lastName;
 
-  private Integer idType;
+    private Integer idType;
 
-  private String idCode;
+    private String idCode;
 
 
 }

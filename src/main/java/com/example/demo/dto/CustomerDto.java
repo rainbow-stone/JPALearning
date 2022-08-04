@@ -1,15 +1,25 @@
 package com.example.demo.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerDto implements Serializable {
-    private final Long customerId;
-    private final String fullName;
-    private final String firstName;
-    private final String lastName;
-    private final Integer idType;
-    private final String idCode;
+    private Long customerId;
+    private String fullName;
+    private String firstName;
+    private String lastName;
+    private Integer idType;
+    private String idCode;
+
+    public void CustomerDto(Integer idType, String idCode, String fullName) {
+        this.idType = idType;
+        this.idCode = idCode;
+        this.fullName = fullName;
+    }
 }
