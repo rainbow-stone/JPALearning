@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.example.demo.dto.PolicyDto;
 import com.example.demo.entity.Policy;
 import com.example.demo.repository.PolicyRepository;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -15,37 +16,38 @@ import java.util.List;
 @Service
 public class PolicyService {
 
-    @Autowired
-    private PolicyRepository policyRepository;
+  @Autowired private PolicyRepository policyRepository;
 
-    /**
-     * QBE查询
-     *
-     * @param condition
-     * @return
-     */
-    public List<PolicyDto> findPolicyByCondition(PolicyDto condition) {
-        List<PolicyDto> result = new ArrayList<>();
-        Policy policy = new Policy();
-        BeanUtil.copyProperties(condition, policy);
-        Example<Policy> policyExample = Example.of(policy);
-        List<Policy> policies = policyRepository.findAll(policyExample);
-        BeanUtil.copyProperties(policies, result);
-        return result;
-    }
+  @Autowired private JPAQueryFactory queryFactory;
 
-    public List<PolicyDto> findPolicyByMatcher(PolicyDto condition) {
-        List<PolicyDto> result = new ArrayList<>();
-        Policy policy = new Policy();
-        BeanUtil.copyProperties(condition, policy);
+  /**
+   * QBE查询
+   *
+   * @param condition
+   * @return
+   */
+  public List<PolicyDto> findPolicyByCondition(PolicyDto condition) {
+    List<PolicyDto> result = new ArrayList<>();
+    Policy policy = new Policy();
+    BeanUtil.copyProperties(condition, policy);
+    Example<Policy> policyExample = Example.of(policy);
+    List<Policy> policies = policyRepository.findAll(policyExample);
+    BeanUtil.copyProperties(policies, result);
+    return result;
+  }
 
-        ExampleMatcher matcher = ExampleMatcher.matching().withMatcher("proposalNo",
-                ExampleMatcher.GenericPropertyMatcher::endsWith);
+  public List<PolicyDto> findPolicyByMatcher(PolicyDto condition) {
+    List<PolicyDto> result = new ArrayList<>();
+    Policy policy = new Policy();
+    BeanUtil.copyProperties(condition, policy);
 
-        Example<Policy> policyExample = Example.of(policy, matcher);
-        List<Policy> policies = policyRepository.findAll(policyExample);
-        BeanUtil.copyProperties(policies, result);
-        return result;
-    }
+    ExampleMatcher matcher =
+        ExampleMatcher.matching()
+            .withMatcher("proposalNo", ExampleMatcher.GenericPropertyMatcher::endsWith);
 
+    Example<Policy> policyExample = Example.of(policy, matcher);
+    List<Policy> policies = policyRepository.findAll(policyExample);
+    BeanUtil.copyProperties(policies, result);
+    return result;
+  }
 }

@@ -10,16 +10,16 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerDto implements Serializable {
-    private Long customerId;
-    private String fullName;
-    private String firstName;
-    private String lastName;
-    private Integer idType;
-    private String idCode;
+  private Long customerId;
+  private String fullName;
+  private String firstName;
+  private String lastName;
+  private Integer idType;
+  private String idCode;
 
-    public void CustomerDto(Integer idType, String idCode, String fullName) {
-        this.idType = idType;
-        this.idCode = idCode;
-        this.fullName = fullName;
-    }
+  public void CustomerDto(Integer idType, String idCode, String fullName) {
+    this.idType = idType;
+    this.idCode = idCode;
+    this.fullName = fullName;
+  }
 }

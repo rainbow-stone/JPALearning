@@ -11,21 +11,17 @@ import java.util.Date;
 @Entity
 @Table(name = "t_policy")
 @Data
-public class Policy {
+public class Policy extends BaseEntity {
 
+  @Id @GeneratedValue private Long policyId;
 
-    @Id
-    @GeneratedValue
-    private Long policyId;
+  @ManyToOne(cascade = {CascadeType.ALL})
+  @JoinColumn(name = "policyHolderId")
+  private Customer policyHolder;
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "policyHolderId")
-    private Customer policyHolder;
+  private String proposalNo;
 
-    private String proposalNo;
+  private Date submissionDate;
 
-    private Date submissionDate;
-
-    private Date issueDate;
-
+  private Date issueDate;
 }

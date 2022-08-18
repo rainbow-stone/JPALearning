@@ -12,26 +12,22 @@ import java.util.List;
 @Entity
 @Table(name = "t_customer")
 @Data
-public class Customer {
+public class Customer extends BaseEntity {
 
+  @Id @GeneratedValue()
+  /*@Column(name = "customer_id")*/
+  private Long customerId;
 
-    @Id
-    @GeneratedValue
-    /*@Column(name = "customerId")*/
-    private Long customerId;
+  @OneToMany(mappedBy = "policyHolder", cascade = CascadeType.ALL)
+  private List<Policy> policies = new ArrayList<>();
 
-    @OneToMany(mappedBy = "policyHolder")
-    private List<Policy> policies = new ArrayList<>();
+  private String fullName;
 
-    private String fullName;
+  private String firstName;
 
-    private String firstName;
+  private String lastName;
 
-    private String lastName;
+  private Integer idType;
 
-    private Integer idType;
-
-    private String idCode;
-
-
+  private String idCode;
 }

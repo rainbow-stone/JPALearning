@@ -10,9 +10,10 @@ import java.util.List;
 /**
  * @author jie.lin
  */
-public interface PolicyRepository extends JpaRepository<Policy, Long>, JpaSpecificationExecutor<Policy> {
+public interface PolicyRepository
+    extends JpaRepository<Policy, Long>, JpaSpecificationExecutor<Policy> {
 
-    List<Policy> findAllByProposalNoAndIssueDateBefore(String proposalNo, Date issueDateStart);
+  List<Policy> findAllByProposalNoAndIssueDateBefore(String proposalNo, Date issueDateStart);
 
-    List<Policy> findByPolicyHolderFullName(String name);
+  List<Policy> findByPolicyHolderFullName(String name);
 }

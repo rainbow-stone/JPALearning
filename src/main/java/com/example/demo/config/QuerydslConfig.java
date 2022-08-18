@@ -8,16 +8,14 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+/** Querydsl EntityManager implementation */
 @Configuration
 public class QuerydslConfig {
 
-    @Resource
-    @PersistenceContext
-    private EntityManager entityManager;
+  @Resource @PersistenceContext private EntityManager entityManager;
 
-    @Bean
-    public JPAQueryFactory queryFactory() {
-        return new JPAQueryFactory(entityManager);
-    }
-
+  @Bean
+  public JPAQueryFactory queryFactory() {
+    return new JPAQueryFactory(entityManager);
+  }
 }

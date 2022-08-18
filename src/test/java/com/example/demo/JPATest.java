@@ -15,57 +15,55 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 @SpringBootTest(classes = {DemoApplication.class, PodamService.class})
 public class JPATest {
 
-    @Autowired
-    private PodamService podamService;
+  @Autowired private PodamService podamService;
 
-    @Autowired
-    private CustomerRepository customerRepository;
+  @Autowired private CustomerRepository customerRepository;
 
+  @Autowired private PolicyRepository policyRepository;
 
-    @Autowired
-    private PolicyRepository policyRepository;
+  private static final String customerName = "赵钱孙李张";
 
-    private static final String customerName = "赵钱孙李张";
+  private static final String policyProposal = "ABCDE";
 
-    private static final String policyProposal = "ABCDE";
+  @Test
+  void contextLoads() {}
 
-    @Test
-    void contextLoads() {
+  @BeforeEach
+  void setup() {
+    System.out.println("========= Setup");
+    for (int i = 0; i < 5; i++) {
+      List<Policy> policies = new ArrayList<Policy>();
+      Customer customer = podamService.createFactory().manufacturePojo(Customer.class);
+      customer.setFullName(customerName.substring(i, i + 1));
+      // customerRepository.save(customer);
+      for (int j = 0; j < 5; j++) {
+        Policy policy = podamService.createFactory().manufacturePojo(Policy.class);
+        policy.setProposalNo(customer.getFullName().concat(policyProposal.substring(j, j + 1)));
+        policy.setPolicyHolder(customer);
+        policies.add(policy);
+
+        // policy.setPolicyHolder(customer);
+        // policyRepository.save(policy);
+      }
+      customer.setPolicies(policies);
+
+      customerRepository.save(customer);
     }
+  }
 
-    @BeforeEach
-    void setup() {
-        System.out.println("========= Setup");
-        for (int i = 0; i < 5; i++) {
-            Customer customer = podamService.createFactory().manufacturePojo(Customer.class);
-            customer.setFullName(customerName.substring(i, i + 1));
-            customerRepository.save(customer);
-            for (int j = 0; j < 5; j++) {
-                Policy policy = podamService.createFactory().manufacturePojo(Policy.class);
-                policy.setProposalNo(customer.getFullName().concat(policyProposal.substring(j, j + 1)));
-                policy.setPolicyHolder(customer);
-                policyRepository.save(policy);
-            }
-        }
-    }
+  @AfterEach
+  void teardown() {}
 
-    @AfterEach
-    void teardown() {
-    }
+  @Test
+  void testFindCustomer() {
+    List<Policy> policies = policyRepository.findByPolicyHolderFullName("赵");
+    Assertions.assertEquals(5, policies.size());
+    customerRepository.findAllByCustomerId(1L);
+    customerRepository.findAllByMultipleConditionSample1("赵", null, null);
 
-    @Test
-    void testFindCustomer() {
-        List<Policy> policies = policyRepository.findByPolicyHolderFullName("赵");
-        Assertions.assertEquals(5, policies.size());
-        customerRepository.findAllByCustomerId(1L);
-        customerRepository.findAllByMultipleConditionSample1("赵", null, null);
-
-        policyRepository.findAllByProposalNoAndIssueDateBefore("赵A", new Date());
-    }
-
+    policyRepository.findAllByProposalNoAndIssueDateBefore("赵A", new Date());
+  }
 }

@@ -46,36 +46,36 @@
         </rollingPolicy>
     </appender>
     <root level="info">
-        <appender-ref ref="consoleLog" />
-        <appender-ref ref="fileInfoLog" />
-        <appender-ref ref="fileErrorLog" />
+        <appender-ref ref="consoleLog"/>
+        <appender-ref ref="fileInfoLog"/>
+        <appender-ref ref="fileErrorLog"/>
     </root>
 
     <!--日志指定包路径-->
     <!--<logger name="com.nx.web.task" additivity="false">-->
     <!--<appender-ref ref="fileInfoLog"/>-->
     <!--</logger>-->
-
+    <!-- Log4jdbc日志配置 -->
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <logger name="jdbc.connection" additivity="false" level="FATAL">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="FILE" />
+        <!--<appender-ref ref="CONSOLE"/>-->
+        <appender-ref ref="FILE"/>
     </logger>
     <logger name="jdbc.resultset" additivity="false" level="INFO">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="FILE" />
+        <!--<appender-ref ref="CONSOLE"/>-->
+        <appender-ref ref="FILE"/>
     </logger>
     <logger name="jdbc.audit" additivity="false" level="INFO">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="FILE" />
+        <!--<appender-ref ref="CONSOLE"/>-->
+        <appender-ref ref="FILE"/>
     </logger>
     <logger name="jdbc.sqlonly" additivity="false" level="DEBUG">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="FILE" />
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
     </logger>
     <logger name="jdbc.sqltiming" additivity="false" level="DEBUG">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="FILE" />
+        <!--<appender-ref ref="CONSOLE"/>-->
+        <appender-ref ref="FILE"/>
     </logger>
 
 </configuration>

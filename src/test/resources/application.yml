@@ -1,10 +1,12 @@
 spring:
   datasource:
-    url: jdbc:log4jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
-    driver-class-name: net.sf.log4jdbc.DriverSpy
+    url: jdbc:log4jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE #Log4jdbc URL配置，实现Console自动输出带参数SQL
+    driver-class-name: net.sf.log4jdbc.DriverSpy #Log4jdbc驱动配置，数据库驱动根据URL格式匹配
     #org.h2.Driver
   jpa:
     hibernate:
       ddl-auto: create-drop
-    database-platform: org.hibernate.dialect.H2Dialect
+      dialect: com.example.demo.dialect.AppOracleDialect #使用自定义数据库方言
+    #database-platform: org.hibernate.dialect.H2Dialect
+
     show-sql: false
